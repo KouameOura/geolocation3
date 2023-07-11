@@ -10,12 +10,14 @@
 	</parent>
 	<groupId>com.spring</groupId>
 	<artifactId>bioMedical</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-RELEASE</version>
 	<name>bioMedical</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>jar</packaging>
 	<properties>
 		<java.version>11</java.version>
+	    <sonar.organization>ko-utrains</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.
 	</properties>
 
 <dependencies>

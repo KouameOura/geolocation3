@@ -23,8 +23,8 @@ environment {
         stage("build & SonarQube analysis") {  
             steps {
                 echo 'build & SonarQube analysis...'
-               withSonarQubeEnv('sonarQube') {
-                   sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=kserge2001_geolocation -X'
+               withSonarQubeEnv('SonarServer') {
+                   sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=KouameOura_geolocation3 -X'
                }
             }
           }

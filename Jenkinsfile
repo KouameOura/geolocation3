@@ -1,9 +1,9 @@
 pipeline {
-    triggers {
-  pollSCM('* * * * *')
+//     triggers {
+//   pollSCM('* * * * *')
     }
    agent {
-    docker { image 'maven:3.8.6-openjdk-18'}
+    docker { image 'maven:3.8.6-openjdk-11-slim'}
    }
     tools {
   maven 'M2_HOME'

@@ -58,7 +58,9 @@ environment {
             }
         }
         stage('push image') {
-            agent any
+            agent {
+               docker { image 'maven:3.8.6-openjdk-11-slim'}
+            }
             steps{
                 script{ 
                     docker.withRegistry("https://"+registry,"ecr:us-east-1:"+registryCredential) {

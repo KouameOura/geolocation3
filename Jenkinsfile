@@ -13,7 +13,7 @@ pipeline {
         stage("build & SonarQube analysis") {  
             steps {
                withSonarQubeEnv('sonarQube') {
-                   sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=KouameOura_geolocation3 -X'
+                   sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=KouameOura_geolocation3'
                }
             }
           }

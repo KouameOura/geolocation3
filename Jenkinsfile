@@ -48,9 +48,7 @@ environment {
         }
 
         stage('Build Image') {
-            agent {
-                docker { image 'maven:3.8.6-openjdk-11-slim'}
-            }
+            
             steps {
                 script{
                   def mavenPom = readMavenPom file: 'pom.xml'
@@ -61,9 +59,7 @@ environment {
             }
         }
         stage('push image') {
-            agent {
-               docker { image 'maven:3.8.6-openjdk-11-slim'}
-            }
+           
             steps{
                 script{ 
                     docker.withRegistry("https://"+registry,"ecr:us-east-1:"+registryCredential) {

@@ -2,9 +2,7 @@ pipeline {
 //     triggers {
 //   pollSCM('* * * * *')
 //    }
-   agent {
-    docker { image 'maven:3.8.6-openjdk-11-slim'}
-   }
+   agent any
     tools {
   maven 'M2_HOME'
 }
@@ -47,7 +45,9 @@ environment {
         }
 
         stage('Build Image') {
-            agent any
+            agent {
+                docker { image 'maven:3.8.6-openjdk-11-slim'}
+            }
             steps {
                 script{
                   def mavenPom = readMavenPom file: 'pom.xml'

@@ -1,7 +1,7 @@
 pipeline {
 //     triggers {
 //   pollSCM('* * * * *')
-    }
+//    }
    agent {
     docker { image 'maven:3.8.6-openjdk-11-slim'}
    }
@@ -45,3 +45,4 @@ pipeline {
             }
         }  	    
     }
+}

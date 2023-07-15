@@ -7,15 +7,15 @@ pipeline {
   maven 'M2_HOME'
 }
 environment {
-    registry = '076892551558.dkr.ecr.us-east-1.amazonaws.com/jenkins'
-    registryCredential = 'jenkins-ecr'
+    registry = '251095668064.dkr.ecr.us-east-1.amazonaws.com/jenkins'
+    registryCredential = 'aws_ecr-id'
     dockerimage = ''
 
      NEXUS_VERSION = "nexus3"
      NEXUS_PROTOCOL = "http"
      NEXUS_URL = "139.144.19.153:8081"
      NEXUS_REPOSITORY = "biom"
-     NEXUS_CREDENTIAL_ID = "NexusID"
+     NEXUS_CREDENTIAL_ID = "NexusIS"
      POM_VERSION = ''
 }
     stages {

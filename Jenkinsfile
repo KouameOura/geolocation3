@@ -8,6 +8,11 @@ pipeline {
     tools {
   maven 'M2_HOME'
 }
+environment {
+    registry = '251095668064.dkr.ecr.us-east-1.amazonaws.com/jenkins'
+    registryCredential = 'aws_ecr_id'
+    dockerimage = ''
+}
 
     stages {
         stage("build & SonarQube analysis") {  
@@ -22,14 +27,16 @@ pipeline {
                 echo 'Checking quality gate...'
                 script {
                     timeout(time: 20, unit: 'MINUTES') {
-                        def qg = waitForQualityGate()
+                        def qg  waitForQualityGate()
                         if (qg.status != 'OK') {
                             error "Pipeline stopped because of quality gate status: ${qg.status}"
+                        }
                     }
                 }
-            }
 
-   }    }
+            } 
+        }    
+
                
         stage('maven package') {
             steps {
@@ -39,10 +46,25 @@ pipeline {
             }
         }
 
-        stage ('deploy') {
+        stage('Build Image') {
+            
             steps {
-                echo 'deployment'
+                script{
+                  def mavenPom = readMavenPom file: 'pom.xml'
+                  POM_VERSION = "${mavenPom.version}"
+                  echo "${POM_VERSION}"
+                  dockerImage = docker.build registry + ":${POM_VERSION}"
+                } 
             }
-        }  	    
+        }
+        stage('push image') {
+            steps{
+                script{ 
+                    docker.withRegistry("https://"+registry,"ecr:us-east-1:"+registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        } 	    
     }
 }

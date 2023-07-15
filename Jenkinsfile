@@ -14,6 +14,9 @@ environment {
 
     stages {
         stage("build & SonarQube analysis") {  
+            agent {
+               docker { image 'maven:3.8.6-openjdk-11-slim'}
+         }
             steps {
                withSonarQubeEnv('sonarQube') {
                    sh 'mvn sonar:sonar -Dsonar.projectKey=KouameOura_geolocation3 -Dsonar.java.binaries=.'

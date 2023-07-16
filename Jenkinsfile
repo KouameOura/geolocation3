@@ -14,7 +14,7 @@ environment {
     NEXUS_VERSION = "nexus3"
     NEXUS_PROTOCOL = "http"
     NEXUS_URL = "139.144.19.153:8081"
-    NEXUS_REPOSITORY = "biom"
+    NEXUS_REPOSITORY = "biom-helm"
     NEXUS_CREDENTIAL_ID = "NexusIS"
     POM_VERSION = ''
 }

@@ -10,6 +10,13 @@ environment {
     registry = '251095668064.dkr.ecr.us-east-1.amazonaws.com/jenkins'
     registryCredential = 'aws_ecr_id'
     dockerimage = ''
+
+    NEXUS_VERSION = "nexus3"
+    NEXUS_PROTOCOL = "http"
+    NEXUS_URL = "139.144.19.153:8081"
+    NEXUS_REPOSITORY = "biom"
+    NEXUS_CREDENTIAL_ID = "NexusIS"
+    POM_VERSION = ''
 }
 
     stages {
@@ -67,6 +74,20 @@ environment {
                     }
                 }
             }
-        } 	    
+        } 
+         // Project Helm Chart push as tgz file
+        stage("pushing the Backend helm charts to nexus"){
+            steps{
+                script{
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'nexus-pass', usernameVariable: 'jenkins-user', passwordVariable: 'docker_pass']]) {
+                            def mavenPom = readMavenPom file: 'pom.xml'
+                            POM_VERSION = "${mavenPom.version}"
+                            sh "echo ${POM_VERSION}"
+                            sh "tar -czvf  app-${POM_VERSION}.tgz app/"
+                            sh "curl -u jenkins-user:$docker_pass http://139.144.19.153:8081/repository/biom-helm --upload-file app-${POM_VERSION}.tgz -v"  
+                    }
+                } 
+            }
+        }     		    
     }
 }
